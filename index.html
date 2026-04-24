@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liquid Hover</title>
+    <style>
+      body {
+        min-height: 100vh;
+        background: #222;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        display: flex;
+        gap: 50px;
+      }
+
+      .container .card {
+        width: 300px;
+        height: 400px;
+        background: #363636;
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .container .card:hover {
+        background: #353535;
+      }
+
+      .ripple {
+        border-radius: 50%;
+        position: absolute;
+        animation: ripple 0.8s ease-out forwards;
+      }
+
+      @keyframes ripple {
+        0% {
+          width: 0;
+          height: 0;
+          opacity: 1;
+        }
+
+        100% {
+          width: 400px;
+          height: 400px;
+          opacity: 0;
+        }
+      }
+
+    #btnPlay {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        border: none;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    </style>
+  </head>
+  <body>
+      
+
+    <!-- Tombol Play/Pause Kustom -->
+
+    <div class="container">
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card"></div>
+    </div>
+
+    <script>
+      let cards = document.querySelectorAll(".card");
+      cards.forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+          let rect = card.getBoundingClientRect();
+          let MouseX = e.clientX - rect.left;
+          let MouseY = e.clientY - rect.top;
+
+          let ripple = document.createElement("img");
+          ripple.setAttribute("src", "./Asset/LOGO.jpg");
+          ripple.classList.add("ripple");
+          ripple.style.left = `${MouseX}px`;
+          ripple.style.top = `${MouseY}px`;
+          card.appendChild(ripple);
+
+          ripple.addEventListener("animationend", () => {
+            ripple.remove();
+          });
+        });
+      });
+
+    </script>
+  </body>
+</html>
